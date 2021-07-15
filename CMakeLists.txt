@@ -9,8 +9,8 @@ option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 option(USE_FOUNDATION_FRAMEWORK "Use Foundation.framework on Darwin" NO)
 
 if(NOT CMAKE_SYSTEM_NAME STREQUAL Darwin)
-  find_package(dispatch CONFIG REQUIRED)
-  find_package(Foundation CONFIG REQUIRED)
+  find_package(dispatch CONFIG)
+  find_package(Foundation CONFIG)
 endif()
 
 include(SwiftSupport)
