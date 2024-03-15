@@ -39,6 +39,7 @@
 		DA9D441B1D920A3500108768 /* XCTestCase+Asynchronous.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D44161D920A3500108768 /* XCTestCase+Asynchronous.swift */; };
 		DA9D441C1D920A3500108768 /* XCTestExpectation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D44171D920A3500108768 /* XCTestExpectation.swift */; };
 		E1495C80224276A600CDEB7D /* IgnoredErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1495C7F224276A600CDEB7D /* IgnoredErrors.swift */; };
+		FCF8F7132AD069A80074FC0F /* XCTIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF8F7122AD069A80074FC0F /* XCTIssue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		DA9D44171D920A3500108768 /* XCTestExpectation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTestExpectation.swift; sourceTree = "<group>"; };
 		E1495C7F224276A600CDEB7D /* IgnoredErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IgnoredErrors.swift; sourceTree = "<group>"; };
 		EA3E74BB1BF2B6D500635A73 /* build_script.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = build_script.py; sourceTree = "<group>"; };
+		FCF8F7122AD069A80074FC0F /* XCTIssue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XCTIssue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 				DA9D44131D920A3500108768 /* Asynchronous */,
 				AE2FE0EA1CFE86DB003EF0D7 /* XCAbstractTest.swift */,
 				AE2FE0ED1CFE86DB003EF0D7 /* XCTAssert.swift */,
+				FCF8F7122AD069A80074FC0F /* XCTIssue.swift */,
 				1748FE3623AFD2D80014DB87 /* XCTSkip.swift */,
 				AE2FE0EE1CFE86DB003EF0D7 /* XCTestCase.swift */,
 				AE2FE0F01CFE86DB003EF0D7 /* XCTestCase+Performance.swift */,
@@ -361,6 +364,7 @@
 				172FF8A72117B74D0059CBC5 /* XCTNSNotificationExpectation.swift in Sources */,
 				AE2FE11A1CFE86E6003EF0D7 /* WallClockTimeMetric.swift in Sources */,
 				AE2FE1191CFE86E6003EF0D7 /* TestFiltering.swift in Sources */,
+				FCF8F7132AD069A80074FC0F /* XCTIssue.swift in Sources */,
 				AE2FE1031CFE86DB003EF0D7 /* XCTestErrors.swift in Sources */,
 				AE2FE1091CFE86DB003EF0D7 /* XCTestSuite.swift in Sources */,
 				AE2FE11C1CFE86E6003EF0D7 /* XCTestCaseSuite.swift in Sources */,

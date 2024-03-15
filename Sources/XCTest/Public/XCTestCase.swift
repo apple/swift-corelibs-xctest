@@ -267,6 +267,23 @@ open class XCTestCase: XCTest {
             expected: false)
     }
 
+    /// Records a failure or other issue in the execution of the test and is used by all test assertions.
+    ///
+    /// - Parameters:
+    ///     - issue: A value with all details related to the issue.
+    ///
+    /// Overrides of this method should call `super` unless they wish to suppress the issue.
+    /// `super` can be invoked with a different `issue` object.
+    open func record(_ issue: XCTIssue, file: String = #file, line: Int = #line) {
+        let isExpected = issue.type == .assertionFailure || issue.type == .performanceRegression
+        recordFailure(
+            withDescription: issue.compactDescription,
+            inFile: file,
+            atLine: line,
+            expected: isExpected
+        )
+    }
+
     /// Setup method called before the invocation of any test method in the
     /// class.
     open class func setUp() {}
