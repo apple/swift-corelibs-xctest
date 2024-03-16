@@ -120,7 +120,7 @@ open class XCTWaiter {
     internal var waitSourceLocation: SourceLocation?
     private weak var manager: WaiterManager<XCTWaiter>?
     private var runLoop: RunLoop?
-
+    private var runLoopSource: RunLoop._Source?
     private weak var _delegate: XCTWaiterDelegate?
     private let delegateQueue = DispatchQueue(label: "org.swift.XCTest.XCTWaiter.delegate")
 
@@ -212,7 +212,8 @@ open class XCTWaiter {
             queue_configureExpectations(expectations)
             state = .waiting(state: waitingState)
             self.runLoop = runLoop
-
+            self.runLoopSource = RunLoop._Source()
+            self.runLoop?._add(self.runLoopSource!, forMode: .default)
             queue_validateExpectationFulfillment(dueToTimeout: false)
         }
 
@@ -221,14 +222,7 @@ open class XCTWaiter {
         self.manager = manager
 
         // Begin the core wait loop.
-        let timeoutTimestamp = Date.timeIntervalSinceReferenceDate + timeout
-        while !isFinished {
-            let remaining = timeoutTimestamp - Date.timeIntervalSinceReferenceDate
-            if remaining <= 0 {
-                break
-            }
-            primitiveWait(using: runLoop, duration: remaining)
-        }
+        primitiveWait(using: runLoop, duration: timeout)
 
         manager.stopManaging(self)
         self.manager = nil
@@ -419,22 +413,12 @@ open class XCTWaiter {
 
 private extension XCTWaiter {
     func primitiveWait(using runLoop: RunLoop, duration timeout: TimeInterval) {
-        // The contract for `primitiveWait(for:)` explicitly allows waiting for a shorter period than requested
-        // by the `timeout` argument. Only run for a short time in case `cancelPrimitiveWait()` was called and
-        // issued `CFRunLoopStop` just before we reach this point.
-        let timeIntervalToRun = min(0.1, timeout)
-
-        // RunLoop.run(mode:before:) should have @discardableResult <rdar://problem/45371901>
-        _ = runLoop.run(mode: .default, before: Date(timeIntervalSinceNow: timeIntervalToRun))
+        runLoop.run(until: .init(timeIntervalSinceNow: timeout))
     }
 
     func cancelPrimitiveWait() {
-        guard let runLoop = runLoop else { return }
-#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-        CFRunLoopStop(runLoop.getCFRunLoop())
-#else
-        runLoop._stop()
-#endif
+        dispatchPrecondition(condition: .onQueue(XCTWaiter.subsystemQueue))
+        runLoopSource?.invalidate()
     }
 }
 
