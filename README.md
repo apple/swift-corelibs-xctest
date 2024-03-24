@@ -56,7 +56,7 @@ $ ./FooTests --dump-tests-json
 
 ## Contributing to XCTest
 
-To contribute, you'll need to be able to build this project and and run its test suite. The easiest way to do so is via the Swift build script.
+To contribute, you'll need to be able to build this project and run its test suite. The easiest way to do so is via the Swift build script.
 
 First, follow [the instructions in the Swift README](https://github.com/apple/swift/blob/main/README.md) to build Swift from source. Confirm you're able to build the Swift project using `utils/build-script -R`.
 
