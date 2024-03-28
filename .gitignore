@@ -5,3 +5,5 @@ xcuserdata
 .build/
 Output/
 Tests/Functional/.lit_test_times.txt
+.swiftpm
+Package.resolved

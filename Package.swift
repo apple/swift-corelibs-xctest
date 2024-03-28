@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.10
 //
 // To build with auto-linking of the .swiftmodule use:
 // $ swift build -Xswiftc -module-link-name -Xswiftc XCTest
@@ -11,13 +11,22 @@ let package = Package(
     products: [
         .library(
             name: "XCTest",
-            type: .dynamic,
+            type: .static,
             targets: ["XCTest"]
         )
     ],
     dependencies: [
+        .package(
+            url: "https://github.com/apple/swift-corelibs-foundation",
+            branch: "package"
+        ),
     ],
     targets: [
-        .target(name: "XCTest", dependencies: [], path: "Sources"),
+        .target(name: "XCTest", 
+            dependencies: [
+                .product(name: "Foundation", package: "swift-corelibs-foundation"),
+            ], 
+            path: "Sources"
+        ),
     ]
 )
