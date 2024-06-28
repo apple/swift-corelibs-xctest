@@ -23,6 +23,14 @@ endif()
 
 include(SwiftSupport)
 include(GNUInstallDirs)
+include(CheckLinkerFlag)
+
+if(CMAKE_SYSTEM_NAME STREQUAL Linux
+    OR CMAKE_SYSTEM_NAME STREQUAL FreeBSD
+    OR CMAKE_SYSTEM_NAME STREQUAL OpenBSD)
+  enable_language(C)
+  check_linker_flag(C "LINKER:--build-id=sha1" LINKER_SUPPORTS_BUILD_ID)
+endif()
 
 add_library(XCTest
   Sources/XCTest/Private/WallClockTimeMetric.swift
@@ -78,6 +86,10 @@ endif()
 set_target_properties(XCTest PROPERTIES
   Swift_MODULE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/swift
   INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_BINARY_DIR}/swift)
+
+if(LINKER_SUPPORTS_BUILD_ID)
+  target_link_options(XCTest PRIVATE "LINKER:--build-id=sha1")
+endif()
 
 
 if(ENABLE_TESTING)
