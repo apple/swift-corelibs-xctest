@@ -182,7 +182,7 @@ internal func XCTMainMisc(
 
               OPTIONS:
 
-              -l, --list-test              List tests line by line to standard output
+              -l, --list-tests             List tests line by line to standard output
                   --dump-tests-json        List tests in JSON to standard output
 
               TESTCASES:
