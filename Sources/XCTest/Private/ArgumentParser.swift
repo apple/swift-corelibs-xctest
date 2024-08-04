@@ -50,8 +50,37 @@ internal struct ArgumentParser {
 
     private let arguments: [String]
 
+    /// Filter out arguments from an arguments array that XCTest doesn't care about.
+    ///
+    /// - Parameters:
+    ///     - arguments: The arguments array to filter.
+    ///
+    /// - Returns: A copy of `arguments` with ignored arguments removed.
+    private static func removeIgnoredArguments(from arguments: [String]) -> [String] {
+        var result = [String]()
+        result.reserveCapacity(arguments.count)
+
+        var iterator = arguments.makeIterator()
+        while let argument = iterator.next() {
+            // Filter out any arguments of the form "--testing-library=xctest".
+            if argument.starts(with: "--testing-library=") {
+                continue
+            }
+
+            // Next, filter out any split arguments ("--testing-library xctest")
+            if argument == "--testing-library" {
+                _ = iterator.next() // skip subsequent value
+                continue
+            }
+
+            result.append(argument)
+        }
+
+        return result
+    }
+
     init(arguments: [String]) {
-        self.arguments = arguments
+        self.arguments = Self.removeIgnoredArguments(from: arguments)
     }
 
     var executionMode: ExecutionMode {
