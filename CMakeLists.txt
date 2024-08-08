@@ -58,6 +58,7 @@ add_library(XCTest
   Sources/XCTest/Public/XCTestObservationCenter.swift
   Sources/XCTest/Public/XCTestCase+Performance.swift
   Sources/XCTest/Public/XCTAssert.swift
+  Sources/XCTest/Public/XCTIssue.swift
   Sources/XCTest/Public/XCTSkip.swift
   Sources/XCTest/Public/Asynchronous/XCTNSNotificationExpectation.swift
   Sources/XCTest/Public/Asynchronous/XCTNSPredicateExpectation.swift

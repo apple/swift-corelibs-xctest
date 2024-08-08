@@ -46,6 +46,7 @@ class ErrorHandling: XCTestCase {
             ("test_shouldReportCorrectTypeOnUnwrapFailure", test_shouldReportCorrectTypeOnUnwrapFailure),
             ("test_shouldReportCustomFileLineLocation", test_shouldReportCustomFileLineLocation),
             ("test_shouldReportFailureNotOnMainThread", test_shouldReportFailureNotOnMainThread),
+            ("test_canRecordIssue", test_canRecordIssue),
         ]
     }()
     
@@ -289,6 +290,20 @@ class ErrorHandling: XCTestCase {
         }
 
         semaphore.wait()
+    }
+
+    // CHECK: Test Case 'ErrorHandling.test_canRecordIssue' started at \d+-\d+-\d+ \d+:\d+:\d+\.\d+
+    // CHECK: .*[/\\]ErrorHandling[/\\]main.swift:[[@LINE+10]]: error: ErrorHandling.test_canRecordIssue : ABC 123
+    // CHECK: Test Case 'ErrorHandling.test_canRecordIssue' failed \(\d+\.\d+ seconds\)
+    func test_canRecordIssue() {
+        struct MyError: Error {}
+        let issue = XCTIssue(
+            type: .performanceRegression,
+            compactDescription: "ABC 123",
+            detailedDescription: "DEF 987",
+            associatedError: MyError()
+        )
+        record(issue)
     }
 }
 
